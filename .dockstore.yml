@@ -1,5 +1,0 @@
-version: 1.2
-workflows:
- - name: version_capture_tasks
-   subclass: WDL
-   primaryDescriptorPath: /version_capture_tasks.wdl
