@@ -59,7 +59,7 @@ task capture_versions {
     String out_fn = "version_capture_~{workflow_name}_~{project_name}_~{workflow_version}.csv"
 
     command <<<
-        cp ../../usr/src/app/* .
+        cp $APPDIR/* .
         python3 version_capture.py \
         --versions_json ~{write_json(versions)} \
         --workflow_name ~{workflow_name} \
