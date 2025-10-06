@@ -53,10 +53,11 @@ task capture_versions {
         String project_name
         String analysis_date
         String docker
+        String? sample_name
     }
 
     VersionInfoArray versions = object {versions: version_array}
-    String out_fn = "version_capture_~{workflow_name}_~{project_name}_~{workflow_version}.csv"
+    String out_fn = "version_capture_" + (if defined(sample_name) then "~{sample_name}_" else "") + "~{workflow_name}_~{project_name}_~{workflow_version}.csv"
 
     command <<<
         cp $APPDIR/* .
