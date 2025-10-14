@@ -58,6 +58,7 @@ task capture_versions {
 
     VersionInfoArray versions = object {versions: version_array}
     String sample_name_flag = if defined(sample_name) then "--sample_name ~{sample_name}" else ""
+    String out_fn = "version_capture_" + (if defined(sample_name) then "~{sample_name}_" else "") + "~{workflow_name}_~{project_name}_~{workflow_version}.csv"
 
     command <<<
         cp $APPDIR/* .
@@ -70,11 +71,12 @@ task capture_versions {
         --docker_name $NAME \
         --docker_host $HOST  \
         --docker_version $VERSION  \
+        --out_fn ~{out_fn}
         ~{sample_name_flag}
     >>>
 
     output {
-        File output_file = glob("version_capture_*.csv")[0]
+        File output_file = out_fn
     }
 
     runtime {
