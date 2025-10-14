@@ -57,8 +57,10 @@ task capture_versions {
     }
 
     VersionInfoArray versions = object {versions: version_array}
+    String out_fn = ("version_capture_" + 
+                    (if defined(sample_name) then "~{sample_name}_" else "") +
+                    "~{workflow_name}_~{project_name}_~{sub(workflow_version, "\\.", "_")}.csv")
     String sample_name_flag = if defined(sample_name) then "--sample_name ~{sample_name}" else ""
-    String out_fn = "version_capture_" + (if defined(sample_name) then "~{sample_name}_" else "") + "~{workflow_name}_~{project_name}_~{workflow_version}.csv"
 
     command <<<
         cp $APPDIR/* .
