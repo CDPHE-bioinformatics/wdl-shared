@@ -63,15 +63,15 @@ task capture_versions {
     command <<<
         cp $APPDIR/* .
         python3 version_capture.py \
-        --versions_json ~{write_json(versions)} \
-        --workflow_name ~{workflow_name} \
-        --workflow_version ~{workflow_version} \
-        --project_name ~{project_name} \
         --analysis_date ~{analysis_date} \
         --docker_name $NAME \
         --docker_host $HOST  \
         --docker_version $VERSION  \
         --out_fn ~{out_fn}
+        --project_name ~{project_name} \
+        --versions_json ~{write_json(versions)} \
+        --workflow_name ~{workflow_name} \
+        --workflow_version ~{workflow_version} \
         ~{sample_name_flag}
     >>>
 
