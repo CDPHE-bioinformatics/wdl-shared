@@ -67,7 +67,7 @@ task capture_versions {
         --docker_name $NAME \
         --docker_host $HOST  \
         --docker_version $VERSION  \
-        --out_fn ~{out_fn}
+        --out_fn ~{out_fn} \
         --project_name ~{project_name} \
         --versions_json ~{write_json(versions)} \
         --workflow_name ~{workflow_name} \
