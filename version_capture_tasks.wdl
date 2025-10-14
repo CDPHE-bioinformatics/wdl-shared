@@ -70,8 +70,6 @@ task capture_versions {
         --out_fn ~{out_fn} \
         --project_name ~{project_name} \
         --versions_json ~{write_json(versions)} \
-        --workflow_name ~{workflow_name} \
-        --workflow_version ~{workflow_version} \
         ~{sample_name_flag}
     >>>
 
