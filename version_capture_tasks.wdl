@@ -53,22 +53,26 @@ task capture_versions {
         String project_name
         String analysis_date
         String docker
+        String? sample_name
     }
 
     VersionInfoArray versions = object {versions: version_array}
-    String out_fn = "version_capture_~{workflow_name}_~{project_name}_~{workflow_version}.csv"
+    String out_fn = ("version_capture_" + 
+                    (if defined(sample_name) then "~{sample_name}_" else "") +
+                    "~{workflow_name}_~{project_name}_~{sub(workflow_version, "\\.", "_")}.csv")
+    String sample_name_flag = if defined(sample_name) then "--sample_name ~{sample_name}" else ""
 
     command <<<
         cp $APPDIR/* .
         python3 version_capture.py \
-        --versions_json ~{write_json(versions)} \
-        --workflow_name ~{workflow_name} \
-        --workflow_version ~{workflow_version} \
-        --project_name ~{project_name} \
         --analysis_date ~{analysis_date} \
         --docker_name $NAME \
         --docker_host $HOST  \
         --docker_version $VERSION  \
+        --out_fn ~{out_fn} \
+        --project_name ~{project_name} \
+        --versions_json ~{write_json(versions)} \
+        ~{sample_name_flag}
     >>>
 
     output {
